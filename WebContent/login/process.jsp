@@ -19,8 +19,11 @@ request.setCharacterEncoding("UTF-8");
 
 Connection conn=null;
 Boolean connect = false;
+
+// html  부분에서 사용
 Boolean isLogin = false;
-	
+String hello = "";  //DB에서 받아온 이름을 html부분에서 출력
+
 try{
 	 Context init = new InitialContext();
 	   DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/kndb");
@@ -34,7 +37,7 @@ try{
 		ResultSet rs = pstmt.executeQuery();			
 		
 		if (rs.next()) {			
-			System.out.println(rs.getString("name"));
+			hello=rs.getString("name");
 			System.out.println("동무 반갑습네다!");
 			isLogin = true; // 데이터가 있으면 true 변경
 					
@@ -79,8 +82,14 @@ if(connect==true){%>
 
 <% if(isLogin){%>
 <script> alert("로그인 성공");</script>
+ <b style = "color: tomato;"><%=hello%></b> 동무 반갑습네다!<br>
 아이디:<%= name %><br>
 비밀번호: <%= password %><br>
+
+<a href = "https://www.youtube.com/channel/UCYU84yvT4mndu19FSpUnP7Q"> 김팔몬 유튜브 </a><br>
+<a href = "http://bj.afreecatv.com/chfhd1994/post/31650117"> 김팔몬 아프리카 TV</a><br>
+<a href = "https://www.twitch.tv/qhalqha"> 김팔몬 트위치 TV</a><br>
+
 <% } else {%>
 <script> alert("로그인 실패");
 location.href="../sign.jsp";</script>
